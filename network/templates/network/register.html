@@ -1,0 +1,88 @@
+
+{% extends "network/loginlayout.html" %}
+{% load static %}
+
+{% block body %}
+
+
+    <div class="card-group">
+  <div class="card">
+    <div class="card bg-dark text-white">
+  <img class="card-img" src="https://lh3.googleusercontent.com/proxy/_hMrtLT9mJC1lyvrNMMcXb4C3KAZr9ex6LCbHlPLef3U542Ra2rig7y1W3Kzh048d02oMLfAgkUsjWy-WUMDtIzFiQWfDQp45CGKimrGcx5ttroXfvZSCg" 
+  alt="Card image">
+  <div class="card-img-overlay">
+    <h5 class="card-title" style="color: black
+    ;"> Udio </h5>
+   
+
+  </div>
+</div>
+
+  </div>
+  <div class="card">
+      <div class="card-body" id="card1">
+
+        <h2>Register</h2>
+
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+    
+        <form enctype="multipart/form-data" action="{% url 'register' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input class="form-control" autofocus type="text" name="name" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="email" name="email" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlFile1">Upload your display image</label>
+                <input type="file" class="form-control-file" id="exampleFormControlFile1" name="imagefile">
+              </div>
+            <input class="btn btn-primary" type="submit" value="Register">
+        </form>
+    
+        
+    <br>
+       
+        Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+
+   
+     <br>
+<hr class="style14">
+<br>
+
+
+
+
+  <br>
+  <br>
+  <br>
+  {% if message %}
+  <div class="alert alert-danger" role="alert">
+    {{ message }}
+  </div>
+  {% endif %}
+
+  </div>
+  </div>
+
+</div>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+   
+
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+
+    <div class="card maincard" style="width: 45rem;">
+
+        <ul class="list-group list-group-flush">
+
+          <li class="list-group-item"> <h3> &nbsp; {{user.name}}</h3> </li>
+          <li class="list-group-item">
+
+            <img class="rounded-circle z-depth-2" id="profileimage" alt="100x100" data-holder-rendered="true" src='{{ MEDIA_URL }}{{ user.imagefile }}'> 
+
+            <br> <br> <span class="link"> {{ user.name }} </span> <br> <div class="userid">
+            @{{user.username}} <br>  <span class="floatright"> 
+                {% if request.user != user %}
+                <button  class="btn btn-secondary" id="follow" data-id={{user.id}}> 
+                    
+                    {% if followed %}
+                    Following 
+                    {% else %}
+                    Follow
+                    {% endif %}
+                    {% endif %}
+                
+                </button> </span> <br> <span id="follownum">
+            <strong style="color: black;"> {{ followings }}  </strong> Followings <strong style="color: black;"> {{ followers }} </strong>  Followers  </span> </div>
+           
+              
+
+
+
+              </li>
+              {% if page_obj  %}
+              {% for obj in page_obj %}
+
+              <li class="list-group-item tweetcard"> <div  onclick="location.href='/open_tweet/{{ obj.id }}'">
+                <img class="rounded-circle z-depth-2" alt="100x100" data-holder-rendered="true" src='{{ MEDIA_URL }}{{ obj.image }}'>  
+                <span class="link"> &nbsp; {{ obj.tweeter }} </span> <span class="userid"> <a href= {% url 'profile' obj.tweeterid %} class="userid">
+                  @{{ obj.tweeterusername}} </a>{{ obj.timestamp}} </span>
+                <p class="contenttweet"> <pre>{{obj.content}}</pre> <hr> </p> </div> 
+                <div class="block"> 
+                   <div onclick="like(this)" id="like{{obj.id}}" class="subblock" data-id="{{ obj.id }}"> 
+                    {% if obj.liked %}
+                    <i class="fa fa-heart" style="color:crimson"></i>
+                    {% else %}
+                    <i style="font-size:14px" class="fa">&#xf08a;</i> 
+                    {% endif %}
+          
+                    {{ obj.likes }}  
+                  
+                  
+                  
+                    
+                  </div> <div  class="subblock" onclick="location.href='/open_tweet/{{ obj.id }}'" > 
+                    <i class="fa fa-comment-o" aria-hidden="true"></i>  {{ obj.comments }} 
+                  
+               
+                </div>  
+              </div> 
+              </li>
+              {% endfor %}
+              {% else %}
+              <li class="list-group-item tweetcard"> No feed to show </li>
+              {% endif %}
+
+
+              
+
+
+
+
+
+  
+
+
+    
+
+              <li class="list-group-item tweetcard">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                      {% if page_obj.has_previous %}
+                      <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                      {% endif %}
+            
+                      <li class="page-item "><a class="page-link" href="#" style="background-color:whitesmoke"> {{ page_obj.number }} </a></li>
+                      
+                      {% if page_obj.has_next %}
+                      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                      <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
+                      {% endif %}
+                    </ul>
+                  </nav>
+
+  
+</div>
+</div>
+</li>
+</ul>
+</div>
+
+{% endblock %}
+
+
+{% block script %}
+    <script src="{% static 'network/profile.js' %}"></script>
+{% endblock %}

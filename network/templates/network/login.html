@@ -1,0 +1,63 @@
+{% extends "network/loginlayout.html" %}
+{% load static %}
+
+{% block body %}
+
+
+    <div class="card-group">
+  <div class="card">
+    <div class="card bg-dark text-white">
+  <img class="card-img" src="https://cdn.dribbble.com/users/295073/screenshots/11297488/media/059c9133bed50c2e65eae6fef16cf787.jpg" 
+  alt="Card image">
+  <div class="card-img-overlay">
+    <h5 class="card-title" style="color: black"> Udio </h5>
+    <p class="card-text" style="color: black;"> Share your thoughts!!! </p>
+
+  </div>
+</div>
+
+  </div>
+  <div class="card">
+      <div class="card-body" id="card1">
+
+
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <input class="btn btn-primary" type="submit" value="Login">
+        </form>
+        <br>
+    
+        Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+
+   
+     <br>
+<hr class="style14">
+<br>
+
+
+
+
+  <br>
+  <br>
+  <br>
+ {% if message %}
+<div class="alert alert-danger" role="alert">
+  {{ message }}
+</div>
+{% endif %}
+
+  </div>
+  </div>
+
+</div>
+
+
+   
+
+{% endblock %}

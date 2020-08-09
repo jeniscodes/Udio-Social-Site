@@ -1,0 +1,77 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Social Network{% endblock %}</title>
+        <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+        <link href="{% static 'network/styles.css' %}" rel="stylesheet">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+       
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+    
+    
+  
+
+
+    
+        
+        {% block script %}
+        {% endblock %}
+    </head>
+    <body>
+       
+        
+
+       
+    <div class=" split left">
+        <div class="card menu border-0" style="width: 25rem;">
+            <ul class="list-group list-group-flush menu">
+
+
+              <li class="list-group-item menu border-0">  <h3> Udio </h3> </li> <br> <br>
+              <li class="list-group-item menu border-0"> <a  href="{% url 'index' %}" class="linkwhite"> All Posts</a></li>
+              <li class="list-group-item menu border-0">  <a href="{% url 'following' request.user.id %}" class="linkwhite">Following</a> </li>
+              <li class="list-group-item menu border-0">  <a  href="{% url 'logout' %}" class="linkwhite">Log Out</a> </li>
+             
+              <br>
+              
+              <br>
+              <br>
+
+              <li  class="list-group-item menu ">
+                <img class="rounded-circle z-depth-2" alt="100x100" data-holder-rendered="true" src='{{ MEDIA_URL }}{{ request.user.imagefile }}'>  
+                <span style="color:white"> <strong style="font-size: 20px;">&nbsp; {{ request.user.name}} </strong>  </span> <a href={% url 'profile' request.user.id %} style="color: whitesmoke;"> @{{ request.user.username}} </a>
+               
+              </li>
+
+            
+            </div>
+            </ul>
+          </div>
+     
+        
+    
+        
+         <div class="split right">
+           
+            {% block body %}
+            {% endblock %}
+        </div>
+     
+        
+    </body>
+</html>

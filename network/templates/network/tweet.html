@@ -1,0 +1,210 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+
+
+
+
+  <div class="card maincard" style="width: 45rem;">
+    <ul class="list-group list-group-flush">
+
+      <li class="list-group-item"> <h3> &nbsp; Post </h3> </li>
+
+     
+     
+      
+      <li class="list-group-item tweetcard" id="user" data-user="{{ request.user.username }}" data-owner= "{{ tweet.owner.username }}"  > <div>
+        <img class="rounded-circle z-depth-2" alt="100x100" data-holder-rendered="true" src='{{ MEDIA_URL }}{{ tweet.owner.imagefile }}'>  
+        <span class="link"> &nbsp; {{ tweet.owner.name }} </span> <span class="userid"> <a class="userid" href= {% url 'profile' tweet.owner.id %}> @{{ tweet.owner.username}} </a> {{ tweet.timestamp}} </span>
+        
+        <div id='editcontent'>
+          <form id="compose">
+              <div class="form-group">
+                <br>
+               
+                <textarea class="form-control" id="tweetedit" rows="3" ></textarea> <br>
+
+                <button type="button" onclick=" return edit_save(this);" data-id={{tweet.id}}  class="btn btn-info" id="edit_submit"> Save </button>
+              </div>
+            </form>
+          </div>
+        <div class="contenttweet" id="tweetcardbox"> <pre>{{ tweet.content}}  </pre><hr> </div> </div> 
+        <div class="block"> 
+          
+           <div onclick="like(this)" id="like{{ tweet.id }}" class="subblock" data-id="{{ tweet.id }}"> 
+            {% if liked %}
+            <i class="fa fa-heart" style="color:crimson"></i>
+            {% else %}
+            <i style="font-size:14px" class="fa">&#xf08a;</i> 
+            {% endif %}
+          </div>
+
+          <span  id="num_likes"  data-toggle="modal" data-target="#exampleModalLong">
+  
+            {{ num_likes }} 
+             
+          </span> 
+          
+          
+          
+            &nbsp;
+           <div  class="subblock block2" id="ncomments"   > 
+            <i class="fa fa-comment-o" aria-hidden="true" ></i>  {{ num_comments }} 
+          </div>
+             {% if request.user == tweet.owner %}
+          <div  class="subblock block2" data-id={{tweet.id}} onclick="edit(this)" id="edit_btn">
+          
+      
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            </div>
+
+            <div   class="subblock block2" >
+              <i class="fa fa-trash" data-toggle="modal" data-target="#exampleModal" aria-hidden="true"></i>
+            </div> 
+            {% endif %}
+          
+          
+      </div> 
+      </li>
+      <li class="list-group-item tweetcard">
+        
+          <form>
+            <div class="form-group">
+            <label for="exampleFormControlTextarea1"> Post a comment </label>
+            <textarea class="form-control" id='commentedtext' rows="3" ></textarea> <br>
+            <button  type="button" onclick="return post_comment(this);"  id='comment_submit' data-id={{tweet.id}} class="btn btn-info"  > Comment </button>
+            </div>
+        </form>
+        
+       
+         
+      </li>
+      <div id="temporary">
+        <li  class="list-group-item">
+          <img class="rounded-circle z-depth-2" alt="100x100" data-holder-rendered="true" src='{{ MEDIA_URL }}{{ request.user.imagefile }}'>  
+          <a href=# class="link"> &nbsp; {{ request.user.name}} </a> <span class="userid"> @{{ request.user.username}} </span> <span id="tempp"> </span>
+         
+        </li>
+      </div>
+      <div id="commentsbox">
+      {% if comments %}
+      
+      {% for comment in comments %}
+
+      
+     
+      
+      <li class="list-group-item commentcard " id='comment{{ comment.id}}' > 
+        <img class="rounded-circle z-depth-2" alt="100x100" data-holder-rendered="true" src='{{ MEDIA_URL }}{{ comment.commenter.imagefile }}'>  
+        <span class="link"> &nbsp; {{ comment.commenter.name }} </span> <a href= {% url 'profile' comment.commenter.id %} > <span class="userid"> @{{ comment.commenter.username}} </a> </span>
+        {% if request.user == comment.commenter or request.user == tweet.owner  %}
+        <span id="deletecmt"> 
+          
+          <i class="fa fa-trash" data-toggle="modal" data-target="#exampleModal2" aria-hidden="true" data-id={{comment.id}} onclick="deletethis(this)"></i>
+           </span>
+       
+        {% endif %}
+        <span class="contenttweet"> <pre>{{ comment.comment}} </pre> </span> 
+      
+        </li>
+      
+      
+        {% endfor %}
+     
+        {% else %}
+        <li class="list-group-item tweetcard">  No comments yet </li>
+        {% endif %}
+      </div>
+
+      </ul>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+<!--Delete Comment  Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+        <h5> Delete the comment ? </h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deletecomment(this)" >Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Delete  Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Delete the post?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button   class="btn btn-primary" id="deleteit" onclick="return deletetweet(this);" data-id={{ tweet.id }}>Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Liked by</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <div class="card" style="width: 30rem;">
+          
+      
+           
+           
+          <ul class="list-group list-group-flush" id="modalbody" >
+
+        {% if likes %}
+        
+        {% for like in likes %}
+        <li class="list-group-item tweetcard" >  <img class="rounded-circle z-depth-2" alt="100x100" data-holder-rendered="true" src='{{ MEDIA_URL }}{{ like.liker.imagefile }}'>  
+         
+         <strong> &nbsp; {{ like.liker.username }} </strong> </li>
+
+     
+
+        {% endfor %}
+        </ul>
+        {% endif %}
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/tweet.js' %}"></script>
+{% endblock %}

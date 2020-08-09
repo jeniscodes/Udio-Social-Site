@@ -1,0 +1,224 @@
+body{
+    font-size: 14px;
+}
+
+h3
+{
+  padding-top: 20px;
+}
+
+.split {
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Control the left side */
+.left {
+    width:32%;
+  left: 0;
+  background-color: #404040;
+  display: flex;
+}
+
+/* Control the right side */
+.right {
+  
+  width: 68%;
+  right: 0;
+  background-color: whitesmoke;
+  display: flex;
+
+}
+
+.menu
+{
+  color:white;
+  background-color: 	#404040;
+  margin-left: 50px;
+}
+#composebtn
+{
+ 
+ padding: 8%;
+
+ margin-left: -45px;
+  color:white;
+  
+  
+  border-radius: 50px;
+ 
+  
+  width:60%;
+ 
+}
+
+.linkwhite{
+  color:white;
+}
+.maincard 
+{
+  margin-left: 130px;
+  top: 0;
+}
+
+
+
+
+
+    @keyframes hide {
+        0% {
+            opacity: 1;
+            height: auto;
+            line-height: auto;
+            padding: 5px;
+            margin-bottom: 3px;
+        }
+        75% {
+            opacity: 0.5;
+            height: auto;
+            line-height: auto;
+            padding: 5px;
+            margin-bottom: 3px;
+        }
+        100% {
+            opacity: 0;
+            height: 0px;
+            line-height: 0px;
+            padding: 0px;
+            margin-bottom: 0px;
+        }
+      }
+      
+.commentcard {
+      
+      animation-name: hide;
+      animation-duration: 3s;
+      animation-fill-mode: forwards;
+      animation-play-state: paused
+      
+  }
+
+
+.subblock
+{
+    display:inline;
+    
+    
+}
+
+.block2
+{
+  margin-right: 60px;
+}
+
+#num_likes
+{
+  margin-right: 60px;
+}
+
+.fa:hover
+{
+    color:red;
+    cursor: pointer;
+}
+
+.tweetcard:hover
+{
+    background-color:whitesmoke;
+}
+
+.rounded-circle 
+{
+  
+  width:60px;
+  height:60px;
+}
+
+#profileimage
+{
+  width:100px;
+  height:100px; 
+}
+
+p.contenttweet 
+{
+  margin-left: 70px;
+}
+
+.subblock{
+  margin-left: 70px;
+
+}
+
+.userid
+{
+  color:grey;
+}
+
+.link
+{
+  font-weight: bold;
+  color: black;
+  font-size: 17px;
+}
+
+#temporary
+{
+
+  opacity: 0.5;
+
+}
+
+#deletecmt
+{
+  float: right;
+}
+
+.floatright
+{
+  float: right;
+}
+
+
+.card-group
+{
+height: 700px;
+padding:80px;
+
+
+
+}
+#card1
+{
+  background-color: #F5F5F5;
+}
+
+.card-img
+{
+height: 600px;
+border-color: white;
+
+}
+
+#num_likes:hover
+{
+  cursor: pointer;
+}
+
+pre
+{
+  font-family:sans-serif;
+  
+  font-size: 13.5px;
+
+  margin-left: 70px;
+  
+  white-space: pre-wrap; 
+  word-break: break-word;
+
+  
+}
