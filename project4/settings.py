@@ -124,6 +124,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.0/howto/static-files/
+STATIC_ROOT = (os.path.join(os.path.dirname(__file__), '..', 'static'))
 STATIC_URL = '/static/'
+
+django_heroku.settings(locals())
 
 LOGIN_URL='/login'
